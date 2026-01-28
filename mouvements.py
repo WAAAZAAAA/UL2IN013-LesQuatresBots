@@ -1,17 +1,16 @@
 # Mouvements.py : mouvements programmés pour le robot
-import time
 
-def carre(robot, cote:float, delay:float=0.1):
-    """ fait faire un carré au robot
-    - cote: longueur des cotés du carré
-    - delay: temps entre chaque étape (pour le suivi)
+def carre(robot, cote:int):
+    """ fait faire un carré au robot, yield a chaque etape pour laisser la main a pygame
+    cote: longueur des cotés du carré
     """
-    for i in range(4):
-        robot.tourner(90)
-        print(robot.get_location()) # suivit du robot
+    for _ in range(4):
+        distance = 0
+        while distance < cote:
+            robot.avancer(1)
+            distance += 1
+            yield # attend que main lance la prochaine etape
 
-        print("Coté n°", i+1)
-        for _ in range(10):
-            robot.avancer(cote/10)
-            print(robot.get_location()) # suivit du robot
-            time.sleep(delay)
+        for _ in range(45):
+            robot.tourner(2)
+            yield # idem
