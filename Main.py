@@ -6,4 +6,8 @@ def main():
     robot = Robot(0, 0, 0)
     carre(robot, 20)
 
+    for _ in range(4):
+        robot.tourner(90)
+        print("capteur: ", robot.get_cible_capteur())
+
 main()
